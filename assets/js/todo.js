@@ -11,21 +11,50 @@ todoList.controller('todoCtrl', function($scope) {
     console.log(error)
   }
 
+
   // add a todo item
   $scope.addTodo = function(newTodo) {
-    
+
+    // generate a unique id for the todo item
+    let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let len = str.length
+    let id = ''
+    for (let i = 0; i < 6; i++) {
+      id += str.charAt(Math.floor(Math.random() * len))
+    }
+
     // save new todo in newTodo array
     $scope.savedTodos.push({
       task: newTodo,
-      done: false
+      done: false,
+      id: id
     })
 
     // put new todo in localStorage
-    localStorage.clear()
-    localStorage.setItem('savedTodos', JSON.stringify($scope.savedTodos))
+    try {
+      localStorage.clear()
+      localStorage.setItem('savedTodos', JSON.stringify($scope.savedTodos))
+    } catch(error) {
+      alert(`Your browser's security settings prevent to-dos from being added to localStorage`)
+    }
     
     // clear the input field
     $scope.newTodo = ''
+    document.getElementById('todoInput').focus()
+  }
+
+
+  // delete todo item
+  $scope.initDelete = function(todo) {
+    console.log(todo)
+    let todos = $scope.savedTodos 
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === todo.id) {
+        todos.splice(i, 1)
+        localStorage.clear()
+        localStorage.setItem('savedTodos', JSON.stringify(todos))
+      }
+    }
   }
 
 })

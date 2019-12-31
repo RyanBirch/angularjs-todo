@@ -18,8 +18,9 @@
     </form>
 
     <div id="todoDisplay">
-      <ul>
-        <li ng-repeat="todo in savedTodos">{{todo.task}}</li>
+      <ul ng-repeat="todo in savedTodos track by $index">
+        <li>{{todo.task}}</li>
+        <button ng-click="initDelete(todo)">X</button>
       </ul>
     </div>
 
