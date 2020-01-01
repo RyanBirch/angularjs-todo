@@ -10,18 +10,22 @@
 </head>
 <body>
 
-  <div ng-controller="todoCtrl">
+  <div ng-controller="todoCtrl" class="wrapper">
 
-    <form ng-submit="addTodo(newTodo)">
-      <input id="todoInput" type="text" ng-model="newTodo" placeholder="Add an item to you To-Do List">
-      <button type="submit">Add</button>
+    <form ng-submit="addTodo(newTodo)" class="formWrapper">
+      <input id="todoInput" type="text" ng-model="newTodo" placeholder="Add an item to your To-Do List">
+      <button type="submit" ng-disabled="!newTodo">Add</button>
     </form>
 
     <div id="todoDisplay">
-      <ul ng-repeat="todo in savedTodos track by $index">
-        <li id="taskText" data-ng-class="todo.done ? 'strikethrough' : 'null'" ng-blur="editTodo(todo)" ng-dblclick="makeEditable(todo)">{{todo.task}}</li>
-        <input type="checkbox" ng-click="completeTodo(todo)">
-        <button ng-click="initDelete(todo)">X</button>
+      <ul>
+        <div ng-repeat="todo in savedTodos track by $index" class="todoWrapper">
+          <li id="taskText" data-id={{todo.id}} data-ng-class="todo.done ? 'strikethrough' : 'null'" ng-blur="editTodo(todo)" ng-dblclick="makeEditable(todo)" ng-click="showData(todo)">{{todo.task}}</li>
+          <div class="todoControls">
+            <input type="checkbox" ng-click="completeTodo(todo)" ng-checked="todo.done">
+            <button ng-click="initDelete(todo)">X</button>
+          </div>
+        </div>
       </ul>
     </div>
 

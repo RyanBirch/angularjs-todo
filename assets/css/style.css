@@ -1,3 +1,33 @@
 .strikethrough {
   text-decoration: line-through;
 }
+
+.wrapper {
+  margin: 4em;
+}
+
+.formWrapper input {
+  width: 70%;
+  height: 2em;
+  font-size: 1em;
+}
+
+.formWrapper button {
+  width: 20%;
+  height: 3em;
+  cursor: pointer;
+}
+
+#todoDisplay {
+  width: 50%;
+  margin: auto;
+  font-size: 1.5em;
+}
+
+.todoWrapper * {
+  /* display: inline-block;  */
+}
+
+.todoControls {
+  
+} 

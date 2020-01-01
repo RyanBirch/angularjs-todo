@@ -46,7 +46,6 @@ todoList.controller('todoCtrl', function($scope) {
 
   // delete todo item
   $scope.initDelete = function(todo) {
-    console.log(todo)
     let todos = $scope.savedTodos 
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === todo.id) {
@@ -71,24 +70,35 @@ todoList.controller('todoCtrl', function($scope) {
   }
 
 
-  $scope.makeEditable = function() {
-    document.getElementById('taskText').contentEditable = true
-    document.getElementById('taskText').focus()
+  // make a todo editable by double clicking
+  $scope.makeEditable = function(todo) {
+    let todos = $scope.savedTodos 
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === todo.id) {
+        event.target.contentEditable = true
+        event.target.focus()
+      }
+    }
   }
 
 
-  // edit a todo item
+  // save the edited todo when you click away from the field
   $scope.editTodo = function(todo) {
     let todos = $scope.savedTodos 
     for (let i = 0; i < todos.length; i++) {
       if (todos[i].id === todo.id) {
-        todo.task = document.getElementById('taskText').textContent
+        todo.task = event.target.textContent
         localStorage.clear()
         localStorage.setItem('savedTodos', JSON.stringify(todos))
       }
     }
 
-    document.getElementById('taskText').contentEditable = false
+    event.target.contentEditable = false
+  }
+
+  // log data to console when you click a todo
+  $scope.showData = function(todo) {
+    console.log(todo)
   }
 
 })
