@@ -57,4 +57,38 @@ todoList.controller('todoCtrl', function($scope) {
     }
   }
 
+
+  // check off a todo item
+  $scope.completeTodo = function(todo) {
+    let todos = $scope.savedTodos 
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === todo.id) {
+        todo.done = !todo.done
+        localStorage.clear()
+        localStorage.setItem('savedTodos', JSON.stringify(todos))
+      }
+    }
+  }
+
+
+  $scope.makeEditable = function() {
+    document.getElementById('taskText').contentEditable = true
+    document.getElementById('taskText').focus()
+  }
+
+
+  // edit a todo item
+  $scope.editTodo = function(todo) {
+    let todos = $scope.savedTodos 
+    for (let i = 0; i < todos.length; i++) {
+      if (todos[i].id === todo.id) {
+        todo.task = document.getElementById('taskText').textContent
+        localStorage.clear()
+        localStorage.setItem('savedTodos', JSON.stringify(todos))
+      }
+    }
+
+    document.getElementById('taskText').contentEditable = false
+  }
+
 })

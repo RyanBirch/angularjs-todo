@@ -19,7 +19,8 @@
 
     <div id="todoDisplay">
       <ul ng-repeat="todo in savedTodos track by $index">
-        <li>{{todo.task}}</li>
+        <li id="taskText" data-ng-class="todo.done ? 'strikethrough' : 'null'" ng-blur="editTodo(todo)" ng-dblclick="makeEditable(todo)">{{todo.task}}</li>
+        <input type="checkbox" ng-click="completeTodo(todo)">
         <button ng-click="initDelete(todo)">X</button>
       </ul>
     </div>
